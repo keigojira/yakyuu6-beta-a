@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スマート野球スコアラー</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'DSEG7-Classic-Mini';
+            src: url('DSEG7Classic-Mini.ttf') format('truetype');
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>スマート野球スコアラー</h1>
+    </header>
+
+    <main>
+        <section id="setup-section">
+            <h2>試合設定</h2>
+            <div class="setup-grid">
+                <div class="input-group">
+                    <label for="inningCount">イニング数:</label>
+                    <input type="number" id="inningCount" value="9" min="1">
+                </div>
+                <div class="input-group">
+                    <label for="awayTeamNameInput">先攻チーム名:</label>
+                    <input type="text" id="awayTeamNameInput" value="ビジターズ">
+                </div>
+                <div class="input-group">
+                    <label for="homeTeamNameInput">後攻チーム名:</label>
+                    <input type="text" id="homeTeamNameInput" value="ホームズ">
+                </div>
+            </div>
+
+            <div class="player-input-container">
+                <div class="team-players">
+                    <h4>先攻チーム選手</h4>
+                    <div id="awayPlayers" class="player-list">
+                        <div class="player-input-group">
+                            <label>1.</label>
+                            <input type="text" value="ビジター選手1">
+                        </div>
+                        <div class="player-input-group">
+                            <label>2.</label>
+                            <input type="text" value="ビジター選手2">
+                        </div>
+                        <div class="player-input-group">
+                            <label>3.</label>
+                            <input type="text" value="ビジター選手3">
+                        </div>
+                        <div class="player-input-group">
+                            <label>4.</label>
+                            <input type="text" value="ビジター選手4">
+                        </div>
+                        <div class="player-input-group">
+                            <label>5.</label>
+                            <input type="text" value="ビジター選手5">
+                        </div>
+                        <div class="player-input-group">
+                            <label>6.</label>
+                            <input type="text" value="ビジター選手6">
+                        </div>
+                        <div class="player-input-group">
+                            <label>7.</label>
+                            <input type="text" value="ビジター選手7">
+                        </div>
+                        <div class="player-input-group">
+                            <label>8.</label>
+                            <input type="text" value="ビジター選手8">
+                        </div>
+                        <div class="player-input-group">
+                            <label>9.</label>
+                            <input type="text" value="ビジター選手9">
+                        </div>
+                    </div>
+                </div>
+                <div class="team-players">
+                    <h4>後攻チーム選手</h4>
+                    <div id="homePlayers" class="player-list">
+                        <div class="player-input-group">
+                            <label>1.</label>
+                            <input type="text" value="ホーム選手1">
+                        </div>
+                        <div class="player-input-group">
+                            <label>2.</label>
+                            <input type="text" value="ホーム選手2">
+                        </div>
+                        <div class="player-input-group">
+                            <label>3.</label>
+                            <input type="text" value="ホーム選手3">
+                        </div>
+                        <div class="player-input-group">
+                            <label>4.</label>
+                            <input type="text" value="ホーム選手4">
+                        </div>
+                        <div class="player-input-group">
+                            <label>5.</label>
+                            <input type="text" value="ホーム選手5">
+                        </div>
+                        <div class="player-input-group">
+                            <label>6.</label>
+                            <input type="text" value="ホーム選手6">
+                        </div>
+                        <div class="player-input-group">
+                            <label>7.</label>
+                            <input type="text" value="ホーム選手7">
+                        </div>
+                        <div class="player-input-group">
+                            <label>8.</label>
+                            <input type="text" value="ホーム選手8">
+                        </div>
+                        <div class="player-input-group">
+                            <label>9.</label>
+                            <input type="text" value="ホーム選手9">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="startGameButton" class="btn btn-primary btn-lg">試合開始</button>
+        </section>
+
+        <section id="game-section" class="hidden">
+            <div class="scoreboard-and-info">
+                <div class="scoreboard-wrapper">
+                    <div class="scoreboard-container">
+                        <div class="scoreboard-header">
+                            <div class="team-label-header">TEAM</div>
+                            <div class="rhe-header">R</div>
+                            <div class="rhe-header">H</div>
+                            <div class="rhe-header">E</div>
+                        </div>
+                        <div id="awayScoreboardRow" class="scoreboard-row">
+                            <div class="team-label" id="awayTeamNameDisplay">AWAY</div>
+                            </div>
+                        <div id="homeScoreboardRow" class="scoreboard-row">
+                            <div class="team-label" id="homeTeamNameDisplay">HOME</div>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="game-info">
+                    <div class="info-item current-inning-display">
+                        <span id="currentInningInfo">1回表</span>
+                    </div>
+                    <div class="bases-diamond">
+                        <div id="homePlate" class="home-plate">HR</div>
+                        <div id="firstBase" class="base first">1st</div>
+                        <div id="secondBase" class="base second">2nd</div>
+                        <div id="thirdBase" class="base third">3rd</div>
+                    </div>
+                    <div class="count-display">
+                        <div class="count-item">B:<span id="ballsCount">0</span></div>
+                        <div class="count-item">S:<span id="strikesCount">0</span></div>
+                        <div class="count-item">O:<span id="outsCount">0</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls-panel">
+                <div class="control-group batting-controls">
+                    <h3>打席操作</h3>
+                    <div class="current-batter-info">
+                        <label for="currentBatterSelect">現在の打者:</label>
+                        <select id="currentBatterSelect"></select>
+                    </div>
+                    <div class="button-grid">
+                        <button id="singleBtn" class="btn btn-action">単打</button>
+                        <button id="doubleBtn" class="btn btn-action">二塁打</button>
+                        <button id="tripleBtn" class="btn btn-action">三塁打</button>
+                        <button id="homeRunBtn" class="btn btn-warning">本塁打</button>
+                        <button id="walkBtn" class="btn btn-info">四球</button>
+                        <button id="strikeOutBtn" class="btn btn-danger">三振</button>
+                        <button id="outBtn" class="btn btn-danger">アウト</button>
+                        <button id="sacrificeBtn" class="btn btn-secondary">犠打/飛</button>
+                        <button id="errorBtn" class="btn btn-info">失策</button>
+                    </div>
+                </div>
+
+                <div class="control-group base-running-controls">
+                    <h3>塁上操作</h3>
+                    <div class="button-grid-2col">
+                        <button id="stealBtn" class="btn btn-action">盗塁</button>
+                        <button id="advanceRunnerBtn" class="btn btn-action">進塁 (任意)</button>
+                        <button id="forceOutRunner" class="btn btn-danger">アウト (塁上)</button>
+                        <button id="returnRunnerBtn" class="btn btn-secondary">帰塁</button>
+                        <button id="clearBasesBtn" class="btn btn-warning">全塁クリア</button>
+                    </div>
+                </div>
+
+                <div class="control-group game-progress-controls">
+                    <h3>試合進行</h3>
+                    <div class="button-grid-2col">
+                        <button id="nextInningBtn" class="btn btn-success">次のイニング</button>
+                        <button id="undoLastActionBtn" class="btn btn-info">元に戻す</button>
+                        <button id="endGameBtn" class="btn btn-danger">試合終了</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="player-stats-tables">
+                <div class="player-stats-table">
+                    <h3 id="awayTeamStatsHeader">ビジターズ成績</h3>
+                    <div class="table-scroll-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>選手名</th>
+                                    <th>打席</th>
+                                    <th>打数</th>
+                                    <th>安打</th>
+                                    <th>打点</th>
+                                    <th>得点</th>
+                                    <th>四球</th>
+                                    <th>三振</th>
+                                </tr>
+                            </thead>
+                            <tbody id="awayPlayerStatsBody">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="player-stats-table">
+                    <h3 id="homeTeamStatsHeader">ホームズ成績</h3>
+                    <div class="table-scroll-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>選手名</th>
+                                    <th>打席</th>
+                                    <th>打数</th>
+                                    <th>安打</th>
+                                    <th>打点</th>
+                                    <th>得点</th>
+                                    <th>四球</th>
+                                    <th>三振</th>
+                                </tr>
+                            </thead>
+                            <tbody id="homePlayerStatsBody">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="history-section" class="hidden">
+            <h2>試合履歴</h2>
+            <ul id="gameHistoryList">
+                </ul>
+            <button id="clearHistoryButton" class="btn btn-danger">履歴をクリア</button>
+            <button id="backToSetupButton" class="btn btn-secondary">設定に戻る</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 スマート野球スコアラー. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
